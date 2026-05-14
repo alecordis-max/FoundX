@@ -1219,7 +1219,7 @@ function LoginPage({ onLogin }) {
 }
 
 // ── TOPBAR ────────────────────────────────────────────────────────────────────
-function Topbar({ currentPage, onNavigate, onLogout }) {
+function Topbar({ currentPage, onNavigate, onLogout, onClose }) {
   return (
     <div style={{ position: "sticky", top: 0, zIndex: 100, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 28px", height: 60, background: "rgba(8,12,18,0.97)", backdropFilter: "blur(20px)", borderBottom: "1px solid var(--border)" }}>
       <div style={{ display: "flex", alignItems: "center", gap: 28 }}>
@@ -1245,6 +1245,10 @@ function Topbar({ currentPage, onNavigate, onLogout }) {
         <div style={{ width: 32, height: 32, borderRadius: "50%", background: "var(--surface2)", border: "1px solid var(--border-gold)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--gold)", fontSize: 12, fontFamily: "'Cormorant Garamond',serif" }}>
           {INVESTOR.initials}
         </div>
+        <button onClick={() => { if(onClose) onClose(); }}
+          style={{ background: "none", border: "1px solid rgba(201,169,110,0.3)", borderRadius: 2, padding: "5px 12px", cursor: "pointer", fontSize: 9, letterSpacing: "0.14em", color: "var(--gold)", textTransform: "uppercase", fontFamily: "'DM Sans',sans-serif" }}>
+          ← VOLTAR AO SITE
+        </button>
         <button onClick={onLogout}
           style={{ background: "none", border: "1px solid var(--border)", borderRadius: 2, padding: "5px 12px", cursor: "pointer", fontSize: 9, letterSpacing: "0.14em", color: "var(--text-muted)", textTransform: "uppercase", fontFamily: "'DM Sans',sans-serif" }}>
           SAIR
@@ -1632,7 +1636,7 @@ function App({ onClose }) {
 
   return (
     <div style={{ minHeight: "100vh", background: "var(--midnight)" }}>
-      <Topbar currentPage={currentPage} onNavigate={handleNavigate} onLogout={handleLogout}/>
+      <Topbar currentPage={currentPage} onNavigate={handleNavigate} onLogout={handleLogout} onClose={onClose}/>
       {currentPage === "dashboard"    && <DashboardPage onAssetClick={handleAssetClick}/>}
       {currentPage === "asset-detail" && <AssetDetailPage assetId={selectedAssetId} onBack={() => handleNavigate("dashboard")}/>}
       {currentPage === "ativos"       && <AssetsPage onAssetClick={handleAssetClick}/>}
